@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-dark: #050A0A;
+  --primary-glow: #00E5D1;
+  --primary-light: #E5FFFC;
+  --primary-deep: #008F85;
+}
+
+/* Base Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 5px rgba(0, 229, 209, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(0, 229, 209, 0.4); }
+  100% { box-shadow: 0 0 5px rgba(0, 229, 209, 0.2); }
+}
+
+@keyframes textGlow {
+  0% { text-shadow: 0 0 4px rgba(0, 229, 209, 0.4); }
+  50% { text-shadow: 0 0 8px rgba(0, 229, 209, 0.6); }
+  100% { text-shadow: 0 0 4px rgba(0, 229, 209, 0.4); }
+}
+
+/* Utility Classes */
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 1s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+.animate-text-glow {
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+.glow-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-effect::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 229, 209, 0.15),
+    transparent 50%
+  );
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #E5FFFC 0%, #00E5D1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #050A0A 0%, #001F1F 100%);
+}
+
+.card-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 229, 209, 0.1),
+    transparent
+  );
+  transition: 0.5s;
+}
+
+.card-glow:hover::before {
+  left: 100%;
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 20px rgba(0, 229, 209, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Spline Viewer Styles */
+spline-viewer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

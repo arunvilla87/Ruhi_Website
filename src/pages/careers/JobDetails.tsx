@@ -1,36 +1,36 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, ArrowRight } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
 import type { Job } from '@/lib/types';
+
+const mockJob: Job = {
+  id: '1',
+  title: 'Senior Full Stack Developer',
+  department: 'Engineering',
+  location: 'Remote - US',
+  type: 'Full-time',
+  status: 'open',
+  description: 'We are seeking an experienced Full Stack Developer to join our engineering team. In this role, you will be responsible for developing and maintaining web applications, collaborating with cross-functional teams, and contributing to technical architecture decisions.',
+  responsibilities: [
+    'Design and implement new features for our web applications',
+    'Write clean, maintainable, and efficient code',
+    'Collaborate with product managers and designers',
+    'Mentor junior developers and conduct code reviews',
+    'Contribute to technical architecture decisions'
+  ],
+  requirements: [
+    '5+ years of experience in full stack development',
+    'Strong proficiency in React, Node.js, and TypeScript',
+    'Experience with cloud platforms (AWS, GCP, or Azure)',
+    'Excellent problem-solving and communication skills',
+    'Bachelor\'s degree in Computer Science or related field'
+  ]
+};
 
 export default function JobDetails() {
   const { id } = useParams();
-  const [job, setJob] = useState<Job | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (id) {
-      fetchJob();
-    }
-  }, [id]);
-
-  const fetchJob = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('jobs')
-        .select('*')
-        .eq('id', id)
-        .single();
-
-      if (error) throw error;
-      setJob(data);
-    } catch (error) {
-      console.error('Error fetching job:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [job] = useState<Job | null>(mockJob);
+  const [loading] = useState(false);
 
   if (loading) {
     return (

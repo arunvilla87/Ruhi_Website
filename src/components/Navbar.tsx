@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Logo } from './Logo';
-import { supabase } from '@/lib/supabase';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,30 +16,6 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    checkAdminStatus();
-  }, [location]);
-
-  const checkAdminStatus = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', session.user.id)
-          .single();
-
-        setIsAdmin(profile?.role === 'admin');
-      } else {
-        setIsAdmin(false);
-      }
-    } catch (error) {
-      console.error('Error checking admin status:', error);
-      setIsAdmin(false);
-    }
-  };
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -56,12 +30,12 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed w-full z-50 px-4 sm:px-6 lg:px-8 top-4">
-      <nav className={`max-w-7xl mx-auto rounded-full transition-all duration-300 ${
+    <div className="fixed w-full z-50 top-0">
+      <nav className={`w-full transition-all duration-300 ${
         isScrolled ? 'bg-[#0A1515]/95 backdrop-blur-sm shadow-lg' : 'bg-black/20 backdrop-blur-sm'
       }`}>
-        <div className="px-4 sm:px-6">
-          <div className="flex justify-between h-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-20">
             <div className="flex items-center">
               <Link to="/">
                 <Logo isScrolled={isScrolled} />
@@ -69,7 +43,7 @@ const Navbar = () => {
             </div>
             
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden md:flex items-center space-x-12">
               <Link
                 to="/"
                 className={`relative font-medium uppercase tracking-wide transition-colors group ${
@@ -130,23 +104,6 @@ const Navbar = () => {
                   isActivePath('/careers') ? 'w-full' : ''
                 }`}></span>
               </Link>
-              {isAdmin && (
-                <Link
-                  to="/admin/dashboard"
-                  className={`relative font-medium uppercase tracking-wide transition-colors group ${
-                    isActivePath('/admin') 
-                      ? 'text-[#00E5D1]' 
-                      : isScrolled 
-                        ? 'text-[#E5FFFC]/90 hover:text-[#00E5D1]' 
-                        : 'text-white/90 hover:text-[#00E5D1]'
-                  }`}
-                >
-                  <span>DASHBOARD</span>
-                  <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-[#00E5D1] transition-all duration-300 group-hover:w-full ${
-                    isActivePath('/admin') ? 'w-full' : ''
-                  }`}></span>
-                </Link>
-              )}
               <Link
                 to="/contact"
                 className={`px-6 py-2 rounded-full border-2 font-medium uppercase tracking-wide transition-all duration-300 ${
@@ -177,8 +134,8 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 mt-2 mx-4">
-            <div className="bg-[#0A1515] rounded-2xl shadow-lg overflow-hidden border border-[#008F85]/20">
+          <div className="md:hidden absolute top-full left-0 right-0">
+            <div className="bg-[#0A1515] shadow-lg border-t border-[#008F85]/20">
               <div className="px-4 pt-2 pb-3 space-y-1">
                 <Link
                   to="/"
@@ -220,18 +177,6 @@ const Navbar = () => {
                 >
                   CAREERS
                 </Link>
-                {isAdmin && (
-                  <Link
-                    to="/admin/dashboard"
-                    className={`block px-4 py-3 rounded-lg font-medium uppercase tracking-wide transition-colors ${
-                      isActivePath('/admin') 
-                        ? 'text-[#00E5D1] bg-[#00E5D1]/10' 
-                        : 'text-[#E5FFFC]/90 hover:text-[#00E5D1] hover:bg-[#00E5D1]/10'
-                    }`}
-                  >
-                    DASHBOARD
-                  </Link>
-                )}
                 <Link
                   to="/contact"
                   className={`block px-4 py-3 rounded-lg font-medium uppercase tracking-wide transition-colors ${

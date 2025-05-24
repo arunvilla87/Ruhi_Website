@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
 import { ArrowLeft } from 'lucide-react';
 import type { Job } from '@/lib/types';
 
@@ -15,11 +14,22 @@ interface FormData {
   willing_to_relocate: boolean;
 }
 
+const mockJob: Job = {
+  id: '1',
+  title: 'Senior Full Stack Developer',
+  department: 'Engineering',
+  location: 'Remote - US',
+  type: 'Full-time',
+  status: 'open',
+  description: 'We are seeking an experienced Full Stack Developer to join our engineering team.',
+  responsibilities: [],
+  requirements: []
+};
+
 export default function JobApplication() {
   const { id: jobId } = useParams();
   const navigate = useNavigate();
-  const [job, setJob] = useState<Job | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [job] = useState<Job | null>(mockJob);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     full_name: '',
@@ -32,49 +42,14 @@ export default function JobApplication() {
     willing_to_relocate: false
   });
 
-  useEffect(() => {
-    if (jobId) {
-      fetchJob();
-    }
-  }, [jobId]);
-
-  const fetchJob = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('jobs')
-        .select('*')
-        .eq('id', jobId)
-        .single();
-
-      if (error) throw error;
-      if (data.status === 'closed') {
-        navigate(`/careers/${jobId}`);
-        return;
-      }
-      setJob(data);
-    } catch (error) {
-      console.error('Error fetching job:', error);
-      navigate('/careers');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!jobId) return;
 
     setSubmitting(true);
     try {
-      const { error } = await supabase
-        .from('applications')
-        .insert([{
-          ...formData,
-          job_id: jobId,
-          status: 'pending'
-        }]);
-
-      if (error) throw error;
+      // Simulate form submission delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
       navigate(`/careers/${jobId}/success`);
     } catch (error) {
       console.error('Error submitting application:', error);
@@ -93,14 +68,6 @@ export default function JobApplication() {
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
     }));
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen pt-20 flex items-center justify-center bg-[#050A0A] text-[#E5FFFC]">
-        Loading...
-      </div>
-    );
-  }
 
   if (!job) {
     return (

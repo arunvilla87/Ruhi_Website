@@ -1,33 +1,47 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Building, Users, GraduationCap } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
-import type { Job } from '@/lib/types';
+import { ArrowRight, Building, Users, GraduationCap, MapPin, Briefcase, Clock } from 'lucide-react';
+
+// Static job data
+const jobs = [
+  {
+    id: '1',
+    title: 'Senior Software Engineer',
+    department: 'Engineering',
+    location: 'Remote',
+    type: 'Full-time',
+    description: 'We are looking for an experienced software engineer to join our team and help build scalable solutions.',
+    postedDate: '2024-02-25',
+    status: 'open'
+  },
+  {
+    id: '2',
+    title: 'Product Manager',
+    department: 'Product',
+    location: 'New York, NY',
+    type: 'Full-time',
+    description: 'Join our product team to help shape the future of our platform and drive innovation.',
+    postedDate: '2024-02-24',
+    status: 'open'
+  },
+  {
+    id: '3',
+    title: 'UX Designer',
+    department: 'Design',
+    location: 'San Francisco, CA',
+    type: 'Full-time',
+    description: 'Create beautiful and intuitive user experiences for our growing product suite.',
+    postedDate: '2024-02-23',
+    status: 'open'
+  }
+];
 
 export default function Careers() {
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedDepartment, setSelectedDepartment] = useState('all');
 
-  useEffect(() => {
-    fetchJobs();
-  }, []);
-
-  const fetchJobs = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('jobs')
-        .select('*')
-        .eq('status', 'open')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setJobs(data || []);
-    } catch (error) {
-      console.error('Error fetching jobs:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const filteredJobs = selectedDepartment === 'all' 
+    ? jobs 
+    : jobs.filter(job => job.department.toLowerCase() === selectedDepartment);
 
   return (
     <div className="min-h-screen bg-[#050A0A]">
@@ -83,39 +97,83 @@ export default function Careers() {
       {/* Open Positions */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#050A0A]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center gradient-text mb-12">Open Positions</h2>
-          {loading ? (
-            <div className="text-center py-12 text-[#E5FFFC]">Loading...</div>
-          ) : jobs.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-[#E5FFFC] opacity-70">No open positions at the moment. Please check back later.</p>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-12">
+            <h2 className="text-3xl font-bold gradient-text mb-4 md:mb-0">Open Positions</h2>
+            <div className="flex gap-4">
+              <button
+                onClick={() => setSelectedDepartment('all')}
+                className={`px-4 py-2 rounded-full transition-colors ${
+                  selectedDepartment === 'all'
+                    ? 'bg-[#00E5D1] text-[#050A0A]'
+                    : 'border border-[#00E5D1] text-[#00E5D1] hover:bg-[#00E5D1] hover:text-[#050A0A]'
+                }`}
+              >
+                All
+              </button>
+              <button
+                onClick={() => setSelectedDepartment('engineering')}
+                className={`px-4 py-2 rounded-full transition-colors ${
+                  selectedDepartment === 'engineering'
+                    ? 'bg-[#00E5D1] text-[#050A0A]'
+                    : 'border border-[#00E5D1] text-[#00E5D1] hover:bg-[#00E5D1] hover:text-[#050A0A]'
+                }`}
+              >
+                Engineering
+              </button>
+              <button
+                onClick={() => setSelectedDepartment('design')}
+                className={`px-4 py-2 rounded-full transition-colors ${
+                  selectedDepartment === 'design'
+                    ? 'bg-[#00E5D1] text-[#050A0A]'
+                    : 'border border-[#00E5D1] text-[#00E5D1] hover:bg-[#00E5D1] hover:text-[#050A0A]'
+                }`}
+              >
+                Design
+              </button>
             </div>
-          ) : (
-            <div className="grid gap-6">
-              {jobs.map((job) => (
-                <div key={job.id} className="card-glow bg-[#0A1515] p-6 rounded-lg border border-[#008F85]/20 hover:border-[#00E5D1]/30 transition-all">
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-[#E5FFFC] mb-2">{job.title}</h3>
-                      <div className="space-y-1">
-                        <p className="text-[#E5FFFC] opacity-70">{job.department} · {job.location} · {job.type}</p>
-                        <p className="text-[#E5FFFC] opacity-70 line-clamp-2">{job.description}</p>
+          </div>
+
+          <div className="grid gap-6">
+            {filteredJobs.map((job) => (
+              <div key={job.id} className="card-glow bg-[#0A1515] p-6 rounded-lg border border-[#008F85]/20 hover:border-[#00E5D1]/30 transition-all">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-[#E5FFFC] mb-2">{job.title}</h3>
+                    <div className="flex flex-wrap gap-4 mb-4">
+                      <div className="flex items-center text-[#E5FFFC] opacity-70">
+                        <Briefcase className="h-4 w-4 mr-2" />
+                        {job.department}
+                      </div>
+                      <div className="flex items-center text-[#E5FFFC] opacity-70">
+                        <MapPin className="h-4 w-4 mr-2" />
+                        {job.location}
+                      </div>
+                      <div className="flex items-center text-[#E5FFFC] opacity-70">
+                        <Clock className="h-4 w-4 mr-2" />
+                        {job.type}
                       </div>
                     </div>
-                    <div className="mt-4 md:mt-0">
-                      <Link
-                        to={`/careers/${job.id}`}
-                        className="inline-flex items-center px-6 py-3 border-2 border-[#00E5D1] text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#00E5D1] hover:text-[#050A0A] transition-all duration-300"
-                      >
-                        View Details
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Link>
-                    </div>
+                    <p className="text-[#E5FFFC] opacity-70 mb-6 lg:mb-0">{job.description}</p>
+                  </div>
+                  <div className="flex gap-4">
+                    <Link
+                      to={`/careers/${job.id}`}
+                      className="inline-flex items-center px-6 py-3 border border-[#008F85]/20 text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#008F85]/10 transition-colors"
+                    >
+                      View Details
+                    </Link>
+                    <Link
+                      to={`/careers/${job.id}/apply`}
+                      className="inline-flex items-center px-6 py-3 border-2 border-[#00E5D1] text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#00E5D1] hover:text-[#050A0A] transition-all duration-300"
+                    >
+                      Apply Now
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

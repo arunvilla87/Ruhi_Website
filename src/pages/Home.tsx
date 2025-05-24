@@ -1,28 +1,20 @@
 import { ArrowRight, Globe, Shield, Briefcase } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'spline-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-        url: string;
-      };
-    }
-  }
-}
-
 export default function Home() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="h-screen relative flex items-center justify-center hero-gradient overflow-hidden">
-        {/* Spline Animation Background */}
-        <div className="absolute inset-0 z-0">
-          <spline-viewer url="https://prod.spline.design/Z0CQFBxoyd7DfpQ8/scene.splinecode" />
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80"
+            alt="Modern IT workspace with computers and technology"
+            className="w-full h-full object-cover"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-[#050A0A]/50 via-[#050A0A]/70 to-[#050A0A] pointer-events-none"></div>
         </div>
 
-        <div className="absolute inset-0 glow-effect z-10"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold gradient-text mb-8 animate-fade-in">
             Excellence<br />Internalized

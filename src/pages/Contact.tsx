@@ -58,8 +58,8 @@ export default function Contact() {
         <div className="absolute inset-0 glow-effect"></div>
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80"
-            alt="Contact background"
+            src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&q=80"
+            alt="Modern IT communication setup with phone and laptop"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#050A0A]/50 via-[#050A0A]/70 to-[#050A0A]"></div>
@@ -79,34 +79,34 @@ export default function Contact() {
             {/* Contact Information Cards */}
             <div className="lg:col-span-1 space-y-6">
               <div className="card-glow bg-[#0A1515] p-8 rounded-2xl border border-[#008F85]/20 animate-slide-up">
-                <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center mb-6">
-                  <Mail className="h-6 w-6 text-[#00E5D1]" />
+                <div className="flex items-center space-x-6">
+                  <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center">
+                    <Mail className="h-6 w-6 text-[#00E5D1]" />
+                  </div>
+                  <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center">
+                    <Phone className="h-6 w-6 text-[#00E5D1]" />
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#E5FFFC]">Email Us</h3>
-                <p className="text-[#E5FFFC] opacity-70">
-                  <a href="mailto:contact@ruhiinc.com" className="hover:text-[#00E5D1] transition-colors">
-                    contact@ruhiinc.com
-                  </a>
-                </p>
+                <h3 className="text-xl font-bold mt-6 mb-2 text-[#E5FFFC]">Contact Information</h3>
+                <div className="space-y-2">
+                  <p className="text-[#E5FFFC] opacity-70">
+                    <a href="mailto:contact@ruhiinc.com" className="hover:text-[#00E5D1] transition-colors">
+                      contact@ruhiinc.com
+                    </a>
+                  </p>
+                  <p className="text-[#E5FFFC] opacity-70">
+                    <a href="tel:9407584552" className="hover:text-[#00E5D1] transition-colors">
+                      (940) 758-4552
+                    </a>
+                  </p>
+                </div>
               </div>
 
               <div className="card-glow bg-[#0A1515] p-8 rounded-2xl border border-[#008F85]/20 animate-slide-up" style={{ animationDelay: '0.2s' }}>
                 <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center mb-6">
-                  <Phone className="h-6 w-6 text-[#00E5D1]" />
-                </div>
-                <h3 className="text-xl font-bold mb-2 text-[#E5FFFC]">Call Us</h3>
-                <p className="text-[#E5FFFC] opacity-70">
-                  <a href="tel:9407584552" className="hover:text-[#00E5D1] transition-colors">
-                    (940) 758-4552
-                  </a>
-                </p>
-              </div>
-
-              <div className="card-glow bg-[#0A1515] p-8 rounded-2xl border border-[#008F85]/20 animate-slide-up" style={{ animationDelay: '0.4s' }}>
-                <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center mb-6">
                   <MapPin className="h-6 w-6 text-[#00E5D1]" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#E5FFFC]">Visit Us</h3>
+                <h3 className="text-xl font-bold mb-2 text-[#E5FFFC]">Location</h3>
                 <p className="text-[#E5FFFC] opacity-70">
                   11101 Emory Oak Rdg<br />
                   Argyle, TX 76226

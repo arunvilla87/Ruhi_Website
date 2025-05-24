@@ -1,4 +1,3 @@
-// Define the application status type
 export type ApplicationStatus = 'pending' | 'reviewed' | 'accepted' | 'rejected';
 export type VisaStatus = 'H1B' | 'H4-EAD' | 'GreenCard' | 'US Citizen';
 export type EmploymentType = 'W2' | 'C2C';
@@ -13,9 +12,6 @@ export interface Job {
   requirements: string[];
   responsibilities: string[];
   status: 'open' | 'closed';
-  created_at: string;
-  updated_at: string;
-  created_by: string;
 }
 
 export interface JobApplication {
@@ -30,19 +26,4 @@ export interface JobApplication {
   employment_type?: EmploymentType;
   willing_to_relocate?: boolean;
   status: ApplicationStatus;
-  created_at: string;
-}
-
-export interface ApplicationWithJob extends JobApplication {
-  jobs: Job;
-}
-
-export interface AdminUser {
-  id: string;
-  email: string;
-}
-
-export interface UploadProgressEvent {
-  loaded: number;
-  total: number;
 }

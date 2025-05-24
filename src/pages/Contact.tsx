@@ -1,18 +1,13 @@
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import emailjs from '@emailjs/browser';
-import { useLocation } from 'react-router-dom';
 
 export default function Contact() {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const position = searchParams.get('position');
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    message: position ? `I'm interested in the ${position} position.` : '',
+    message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -52,20 +47,19 @@ export default function Contact() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050A0A]">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="h-[40vh] relative flex items-center justify-center hero-gradient">
-        <div className="absolute inset-0 glow-effect"></div>
+      <section className="h-[40vh] relative flex items-center justify-center bg-[#0A2E2E]">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&q=80"
-            alt="Modern IT communication setup with phone and laptop"
-            className="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?auto=format&fit=crop&q=80"
+            alt="Contact background"
+            className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050A0A]/50 via-[#050A0A]/70 to-[#050A0A]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A2E2E] to-[#1A5F5F]"></div>
         </div>
         <div className="relative z-20 text-center px-4 animate-fade-in">
-          <h1 className="text-4xl md:text-5xl font-bold gradient-text mb-4">Get in Touch</h1>
+          <h1 className="text-4xl font-bold text-[#4DDBCA] mb-4">Get in Touch</h1>
           <p className="text-xl text-[#E5FFFC] opacity-90 max-w-2xl mx-auto">
             Let's discuss how we can help transform your business
           </p>
@@ -73,40 +67,40 @@ export default function Contact() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#050A0A]">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Contact Information Cards */}
             <div className="lg:col-span-1 space-y-6">
-              <div className="card-glow bg-[#0A1515] p-8 rounded-2xl border border-[#008F85]/20 animate-slide-up">
-                <div className="flex items-center space-x-6">
-                  <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center">
-                    <Mail className="h-6 w-6 text-[#00E5D1]" />
-                  </div>
-                  <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center">
-                    <Phone className="h-6 w-6 text-[#00E5D1]" />
-                  </div>
+              <div className="bg-[#0A2E2E] p-8 rounded-2xl border border-[#4DDBCA]/20 animate-slide-up hover:border-[#4DDBCA]/40 transition-all">
+                <div className="w-12 h-12 bg-[#4DDBCA]/10 rounded-xl flex items-center justify-center mb-6">
+                  <Mail className="h-6 w-6 text-[#4DDBCA]" />
                 </div>
-                <h3 className="text-xl font-bold mt-6 mb-2 text-[#E5FFFC]">Contact Information</h3>
-                <div className="space-y-2">
-                  <p className="text-[#E5FFFC] opacity-70">
-                    <a href="mailto:contact@ruhiinc.com" className="hover:text-[#00E5D1] transition-colors">
-                      contact@ruhiinc.com
-                    </a>
-                  </p>
-                  <p className="text-[#E5FFFC] opacity-70">
-                    <a href="tel:9407584552" className="hover:text-[#00E5D1] transition-colors">
-                      (940) 758-4552
-                    </a>
-                  </p>
-                </div>
+                <h3 className="text-xl font-bold mb-2 text-[#4DDBCA]">Email Us</h3>
+                <p className="text-[#E5FFFC] opacity-70">
+                  <a href="mailto:contact@ruhiinc.com" className="hover:text-[#4DDBCA] transition-colors">
+                    contact@ruhiinc.com
+                  </a>
+                </p>
               </div>
 
-              <div className="card-glow bg-[#0A1515] p-8 rounded-2xl border border-[#008F85]/20 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                <div className="w-12 h-12 bg-[#00E5D1]/10 rounded-xl flex items-center justify-center mb-6">
-                  <MapPin className="h-6 w-6 text-[#00E5D1]" />
+              <div className="bg-[#0A2E2E] p-8 rounded-2xl border border-[#4DDBCA]/20 animate-slide-up hover:border-[#4DDBCA]/40 transition-all" style={{ animationDelay: '0.2s' }}>
+                <div className="w-12 h-12 bg-[#4DDBCA]/10 rounded-xl flex items-center justify-center mb-6">
+                  <Phone className="h-6 w-6 text-[#4DDBCA]" />
                 </div>
-                <h3 className="text-xl font-bold mb-2 text-[#E5FFFC]">Location</h3>
+                <h3 className="text-xl font-bold mb-2 text-[#4DDBCA]">Call Us</h3>
+                <p className="text-[#E5FFFC] opacity-70">
+                  <a href="tel:9407584552" className="hover:text-[#4DDBCA] transition-colors">
+                    (940) 758-4552
+                  </a>
+                </p>
+              </div>
+
+              <div className="bg-[#0A2E2E] p-8 rounded-2xl border border-[#4DDBCA]/20 animate-slide-up hover:border-[#4DDBCA]/40 transition-all" style={{ animationDelay: '0.4s' }}>
+                <div className="w-12 h-12 bg-[#4DDBCA]/10 rounded-xl flex items-center justify-center mb-6">
+                  <MapPin className="h-6 w-6 text-[#4DDBCA]" />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-[#4DDBCA]">Visit Us</h3>
                 <p className="text-[#E5FFFC] opacity-70">
                   11101 Emory Oak Rdg<br />
                   Argyle, TX 76226
@@ -116,13 +110,13 @@ export default function Contact() {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="card-glow bg-[#0A1515] p-8 md:p-12 rounded-2xl border border-[#008F85]/20">
+              <div className="bg-[#0A2E2E] p-8 md:p-12 rounded-2xl border border-[#4DDBCA]/20">
                 {isSubmitted ? (
                   <div className="text-center py-12">
-                    <div className="w-16 h-16 bg-[#00E5D1]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 className="h-8 w-8 text-[#00E5D1]" />
+                    <div className="w-16 h-16 bg-[#4DDBCA]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle2 className="h-8 w-8 text-[#4DDBCA]" />
                     </div>
-                    <h2 className="text-2xl font-bold text-[#E5FFFC] mb-4">Thank You!</h2>
+                    <h2 className="text-2xl font-bold text-[#4DDBCA] mb-4">Thank You!</h2>
                     <p className="text-[#E5FFFC] opacity-70 mb-8">
                       Your message has been sent successfully. We'll get back to you soon.
                     </p>
@@ -131,14 +125,14 @@ export default function Contact() {
                         setIsSubmitted(false);
                         setFormData({ name: '', email: '', phone: '', message: '' });
                       }}
-                      className="inline-flex items-center px-6 py-3 border-2 border-[#00E5D1] text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#00E5D1] hover:text-[#050A0A] transition-all duration-300"
+                      className="inline-flex items-center px-6 py-3 border-2 border-[#4DDBCA] text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#4DDBCA] hover:text-[#0A2E2E] transition-all duration-300"
                     >
                       Send Another Message
                     </button>
                   </div>
                 ) : (
                   <>
-                    <h2 className="text-2xl font-bold gradient-text mb-8">Send us a Message</h2>
+                    <h2 className="text-2xl font-bold text-[#4DDBCA] mb-8">Send us a Message</h2>
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -151,7 +145,7 @@ export default function Contact() {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg bg-[#0A1515] border border-[#008F85]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#00E5D1] focus:border-transparent transition-shadow"
+                            className="w-full px-4 py-3 rounded-lg bg-[#0A2E2E] border border-[#4DDBCA]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#4DDBCA] focus:border-transparent transition-shadow"
                             required
                           />
                         </div>
@@ -165,7 +159,7 @@ export default function Contact() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="w-full px-4 py-3 rounded-lg bg-[#0A1515] border border-[#008F85]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#00E5D1] focus:border-transparent transition-shadow"
+                            className="w-full px-4 py-3 rounded-lg bg-[#0A2E2E] border border-[#4DDBCA]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#4DDBCA] focus:border-transparent transition-shadow"
                             required
                           />
                         </div>
@@ -181,7 +175,7 @@ export default function Contact() {
                           name="phone"
                           value={formData.phone}
                           onChange={handleChange}
-                          className="w-full px-4 py-3 rounded-lg bg-[#0A1515] border border-[#008F85]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#00E5D1] focus:border-transparent transition-shadow"
+                          className="w-full px-4 py-3 rounded-lg bg-[#0A2E2E] border border-[#4DDBCA]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#4DDBCA] focus:border-transparent transition-shadow"
                         />
                       </div>
 
@@ -195,7 +189,7 @@ export default function Contact() {
                           value={formData.message}
                           onChange={handleChange}
                           rows={6}
-                          className="w-full px-4 py-3 rounded-lg bg-[#0A1515] border border-[#008F85]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#00E5D1] focus:border-transparent transition-shadow resize-none"
+                          className="w-full px-4 py-3 rounded-lg bg-[#0A2E2E] border border-[#4DDBCA]/20 text-[#E5FFFC] focus:ring-2 focus:ring-[#4DDBCA] focus:border-transparent transition-shadow resize-none"
                           required
                         />
                       </div>
@@ -203,7 +197,7 @@ export default function Contact() {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full flex items-center justify-center px-8 py-4 border-2 border-[#00E5D1] text-lg font-medium rounded-full text-[#E5FFFC] hover:bg-[#00E5D1] hover:text-[#050A0A] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full flex items-center justify-center px-8 py-4 border-2 border-[#4DDBCA] text-lg font-medium rounded-full text-[#E5FFFC] hover:bg-[#4DDBCA] hover:text-[#0A2E2E] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isSubmitting ? 'Sending...' : 'Send Message'}
                         <Send className="ml-2 h-5 w-5" />

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight, Building, Users, GraduationCap, MapPin, Briefcase, Clock } from 'lucide-react';
 
 const jobs = [
@@ -156,19 +155,13 @@ export default function Careers() {
                       <p className="text-[#E5FFFC] opacity-70 mb-6 lg:mb-0 max-w-2xl">{job.description}</p>
                     </div>
                     <div className="flex gap-4">
-                      <Link
-                        to={`/careers/${job.id}`}
-                        className="inline-flex items-center px-6 py-3 border border-[#4DDBCA]/20 text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#4DDBCA]/10 transition-colors"
-                      >
-                        View Details
-                      </Link>
-                      <Link
-                        to={`/careers/${job.id}/apply`}
+                      <a
+                        href={`mailto:contact@ruhiinc.com?subject=Application for ${job.title}`}
                         className="inline-flex items-center px-6 py-3 border-2 border-[#4DDBCA] text-base font-medium rounded-full text-[#E5FFFC] hover:bg-[#4DDBCA] hover:text-[#0A2E2E] transition-all duration-300"
                       >
                         Apply Now
                         <ArrowRight className="ml-2 h-5 w-5" />
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>

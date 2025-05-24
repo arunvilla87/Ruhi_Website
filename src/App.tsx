@@ -6,9 +6,6 @@ import About from '@/pages/About';
 import Services from '@/pages/Services';
 import Careers from '@/pages/Careers';
 import Contact from '@/pages/Contact';
-import JobDetails from '@/pages/careers/JobDetails';
-import JobApplication from '@/pages/careers/JobApplication';
-import ApplicationSuccess from '@/pages/careers/ApplicationSuccess';
 
 function App() {
   return (
@@ -19,9 +16,6 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/careers" element={<Careers />} />
-        <Route path="/careers/:id" element={<JobDetails />} />
-        <Route path="/careers/:id/apply" element={<JobApplication />} />
-        <Route path="/careers/:id/success" element={<ApplicationSuccess />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />

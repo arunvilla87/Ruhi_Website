@@ -6,9 +6,12 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      'components': path.resolve(__dirname, './src/components')
+      '@': path.resolve(__dirname, './src')
     },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: true
   },
   server: {
     port: 5173,

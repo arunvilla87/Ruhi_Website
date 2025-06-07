@@ -79,19 +79,19 @@ export default function About() {
               {
                 name: "Sravan Villa",
                 role: "CEO & Founder",
-                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+                image: "/sravan-villa.jpg?" + Date.now(), // Add cache busting
                 experience: "20+ years of experience in business consulting and strategy"
               },
               {
                 name: "Sirisha Balantrapu",
                 role: "Chief Operations Officer",
-                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=256&h=256&q=80",
                 experience: "15+ years of operational excellence and team management"
               },
               {
                 name: "Sahab Shahi ( Hardik )",
                 role: "Lead Recruitment Specialist",
-                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=256&h=256&q=80",
                 experience: "12+ years of technology innovation and digital transformation"
               }
             ].map((member, index) => (
@@ -108,6 +108,14 @@ export default function About() {
                       src={member.image}
                       alt={member.name}
                       className="w-32 h-32 rounded-full mx-auto object-cover ring-2 ring-[#4DDBCA]/20 transition-all duration-500 group-hover:ring-[#4DDBCA]/40"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        console.log('Image failed to load:', member.image);
+                        target.src = "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=256&h=256&q=80";
+                      }}
+                      onLoad={() => {
+                        console.log('Image loaded successfully:', member.image);
+                      }}
                     />
                   </div>
                   <h3 className="text-xl font-semibold text-center mb-1 text-[#4DDBCA] transition-colors duration-300">{member.name}</h3>
